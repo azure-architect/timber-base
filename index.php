@@ -15,7 +15,9 @@
 
 $context          = Timber::context();
 $context['posts'] = Timber::get_posts();
+$context['tests'] = Timber::get_posts(['post_type' => 'test'] );
 $context['foo']   = 'bar';
+$context['qux']   = 'quxie piranha';
 $templates        = array( 'index.twig' );
 if ( is_home() ) {
 	array_unshift( $templates, 'front-page.twig', 'home.twig' );
