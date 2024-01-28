@@ -9,6 +9,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 require_once __DIR__ . '/src/StarterSite.php';
 
+require_once __DIR__ . '/inc/shortcodes.php';
+
 Timber\Timber::init();
 
 // Sets the directories (inside your theme) to find .twig files.
