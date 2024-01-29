@@ -1,0 +1,19 @@
+
+
+
+{% for post in processed_tests %}
+    <h2>{{ post.title }}</h2>
+    <div>{{ post.content|raw }}</div>
+    <ul>
+        {% for key, value in post.fields %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+
+
+
+
+
+
+

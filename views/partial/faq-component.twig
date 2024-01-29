@@ -1,0 +1,47 @@
+
+<div class="bg-white">
+    <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
+        <div class="mx-auto max-w-4xl divide-y divide-gray-900/10">
+            <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">Frequently asked questions</h2>
+            <dl class="mt-10 space-y-6 divide-y divide-gray-900/10">
+
+                {% set args = {
+                    'post_type': 'faq',
+                    'posts_per_page': -1
+                } %}
+                {% set faq_posts = Post(args) %}
+
+                {% for post in faq_posts %}
+                    {% set itemCount = post.meta('faq_item') %}
+                    {% set itemCount = itemCount is iterable ? itemCount|length : itemCount %}
+
+                    {% for i in 0..(itemCount - 1) %}
+                        {% set question = post.meta('faq_item_' ~ i ~ '_question') %}
+                        {% set answer = post.meta('faq_item_' ~ i ~ '_answer') %}
+
+                        <div x-data="{ open: false }" class="pt-6">
+                            <dt>
+                                <button @click="open = !open" type="button" class="flex w-full items-start justify-between text-left text-gray-900">
+                                    <span class="text-base font-semibold leading-7">{{ question }}</span>
+                                    <span class="ml-6 flex h-7 items-center">
+                                        <!-- Icons for expand/collapse -->
+                                        <svg x-show="!open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                                        </svg>
+                                        <svg x-show="open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </dt>
+                            <dd x-show="open" class="mt-2 pr-12">
+                                <p class="text-base leading-7 text-gray-600">{{ answer }}</p>
+                            </dd>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+            </dl>
+        </div>
+    </div>
+</div>
