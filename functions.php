@@ -38,7 +38,7 @@ function mytheme_enqueue_scripts() {
     // Enqueue JavaScript File
     // Assuming the compiled JS file is at 'dist/js/prod.js'
     wp_enqueue_script('mytheme-main-js', get_template_directory_uri() . '/dist/js/prod.js', array(), $theme_version, true);
-    wp_enqueue_script('mytheme-alpine-js', $alpinejs, array(), $theme_version, true);
+//    wp_enqueue_script('mytheme-alpine-js', $alpinejs, array(), $theme_version, true);
 }
 
 add_action('wp_enqueue_scripts', 'mytheme_enqueue_scripts');
