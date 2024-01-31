@@ -69,3 +69,69 @@ return $compiled_content;
 }
 
 add_shortcode('twig_query', 'twig_query_shortcode');
+
+
+/**
+ * Shortcode to display methods of a specified class.
+ *
+ * Usage:
+ * Place the shortcode [show_methods class="YourClassName"] in a post or page,
+ * replacing "YourClassName" with the actual name of the class whose methods you want to inspect.
+ * This shortcode will output a list of all public methods available in the specified class.
+ */
+function show_class_methods($atts) {
+    $attributes = shortcode_atts(['class' => ''], $atts);
+    $class_name = $attributes['class'];
+
+    if (class_exists($class_name)) {
+        $reflection = new ReflectionClass($class_name);
+        $methods = $reflection->getMethods();
+        $output = "<ul>";
+
+        foreach ($methods as $method) {
+            $output .= "<li>" . $method->getName() . "</li>";
+        }
+
+        $output .= "</ul>";
+        return $output;
+    } else {
+        return "Class '{$class_name}' not found or not available.";
+    }
+}
+add_shortcode('show_methods', 'show_class_methods');
+
+/**
+ * Inspects a method using a shortcode and returns the reflection of the method.
+ *
+ * @param array $atts The attributes passed to the shortcode.
+ * @throws ReflectionException if the method does not exist.
+ * @return string The reflection of the method wrapped in <pre> tags.
+ */
+
+/**
+ * You can use this shortcode in posts or pages like this:
+ * [inspect_method class="YourClassName" method="yourMethodName"].
+ * Replace YourClassName and yourMethodName with
+ * the actual class and method names you want to inspect.
+ */
+function inspect_method_shortcode($atts) {
+    $attributes = shortcode_atts([
+        'class' => '',
+        'method' => '',
+    ], $atts);
+
+    if (class_exists($attributes['class'])) {
+        try {
+            $reflection = new ReflectionMethod($attributes['class'], $attributes['method']);
+            ob_start();
+            var_dump($reflection);
+            $output = ob_get_clean();
+            return '<pre>' . htmlspecialchars($output) . '</pre>';
+        } catch (ReflectionException $e) {
+            return 'Error: ' . htmlspecialchars($e->getMessage());
+        }
+    } else {
+        return 'Class not found.';
+    }
+}
+add_shortcode('inspect_method', 'inspect_method_shortcode');

@@ -18,6 +18,16 @@ $context['posts'] = Timber::get_posts();
 $context['faqs'] = Timber::get_posts(['post_type' => 'faq'] );
 
 
+
+$timber_reflection = new ReflectionClass('Timber');
+$methods = $timber_reflection->getMethods();
+$method_names = array_map(function($method) {
+    return $method->getName();
+}, $methods);
+
+$context['timber_methods'] = $method_names;
+
+
 //$context['foo']   = 'bar';
 //$context['qux']   = 'quxie piranha';
 $templates        = array( 'index.twig' );

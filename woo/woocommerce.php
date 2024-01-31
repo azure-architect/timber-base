@@ -1,14 +1,22 @@
 <?php
-/**
- * WooCommerce Template
- *
- * This template is used to display the main shop page.
- *
- * @package timber-base
- */
+// woocommerce.php
 
 $context = Timber::context();
-$context['posts'] = Timber::get_posts();
-$context['products'] = new Timber\PostQuery();
 
-Timber::render( 'woocommerce.twig', $context );
+// Set up WooCommerce context
+if (is_plugin_active('woocommerce/woocommerce.php')) {
+    // WooCommerce plugin is active
+    // You can now safely call the is_woocommerce() function
+    if ( is_woocommerce() ) {
+        $args = array(
+            'post_type' => 'product',
+        );
+        $context['post'] = Timber::get_post();
+        $context['products'] = Timber::get_posts($args);
+
+        // Add any other WooCommerce-specific context variables as needed
+    }
+} else {die('WooCommerce is not active');};
+
+Timber::render('woocommerce.twig', $context);
+

@@ -1,0 +1,51 @@
+{# templates/single-product.twig #}
+
+{% extends "base.twig" %}
+
+{% block content %}
+
+{% set image_id = post.meta('_thumbnail_id') %}
+    {% set image = get_attachment(image_id) %}
+{% set state = image %}
+    {{ include( 'debug.twig' ) }}
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            {# Product Image #}
+            <div class="w-full">
+                <img src="{{ image.guid }}" alt="{{ product.title }}" class="w-full">
+            </div>
+
+            <div>
+                {# Product Title #}
+                <h1 class="text-2xl font-bold mb-4">{{ product.title }}</h1>
+
+                {# Product Price #}
+                <p class="text-xl mb-4">{{ product.get_price_html|raw }}</p>
+
+                {# Product Short Description #}
+                <div class="product-short-description mb-4">
+                    {{ product.short_description }}
+                </div>
+
+                {# Product Full Description #}
+                <div class="product-description mb-4">
+                    <h2 class="text-xl font-bold mb-4">Description</h2>
+                    {{ product.description }}
+                </div>
+
+                {# Add to Cart Button #}
+                <form class="cart" action="{{ product.add_to_cart_url }}" method="post" enctype='multipart/form-data'>
+                    {% if product.is_in_stock %}
+                        <button type="submit" name="add-to-cart" value="{{ product.id }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Add to Cart
+                        </button>
+                    {% else %}
+                        <button class="bg-gray-500 text-white font-bold py-2 px-4 rounded" disabled>Out of Stock</button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

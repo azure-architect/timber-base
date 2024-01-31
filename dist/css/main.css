@@ -2250,9 +2250,6 @@ video {
 .border-2 {
   border-width: 2px;
 }
-.border-4 {
-  border-width: 4px;
-}
 .border-x {
   border-left-width: 1px;
   border-right-width: 1px;
@@ -2946,6 +2943,9 @@ video {
 .pt-\[7\%\] {
   padding-top: 7%;
 }
+.pe-2 {
+  padding-inline-end: 0.5rem;
+}
 .text-left {
   text-align: left;
 }
@@ -3014,6 +3014,9 @@ video {
 }
 .uppercase {
   text-transform: uppercase;
+}
+.capitalize {
+  text-transform: capitalize;
 }
 .italic {
   font-style: italic;
@@ -3533,6 +3536,10 @@ video {
 .hover\:bg-\[\#3372df\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(51 114 223 / var(--tw-bg-opacity));
+}
+.hover\:bg-blue-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
