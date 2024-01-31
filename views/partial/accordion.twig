@@ -1,0 +1,45 @@
+<section>
+    <div class="container mx-auto mt-5">
+        <div class="flex flex-wrap">
+            <!-- Accordion Area -->
+            <div class="w-full md:w-1/2">
+                <div class="container mx-auto">
+                    <div class="flex flex-col items-center card-body">
+                        <div class="text-lg text-red-600">Frequently Asked Questions</div>
+                        <h3 class="my-2 text-2xl">Got Questions? We've got answers</h3>
+
+                        <!-- Using Alpine.js for Accordion Functionality -->
+                        <div x-data="{ open: null }">
+                            {% set faq_posts = Timber::get_posts({'post_type': 'faq'}) %}
+                            {% for post in faq_posts %}
+                                {% set itemCount = post.meta('faq_item') %}
+                                {% set itemCount = itemCount is iterable ? itemCount|length : itemCount %}
+                                {% for i in 0..(itemCount - 1) %}
+                                    {% set question = post.meta('faq_item_' ~ i ~ '_question') %}
+                                    {% set answer = post.meta('faq_item_' ~ i ~ '_answer') %}
+                                    <div class="container mx-auto mt-3">
+                                        <div class="flex items-center">
+                                            <button @click="open = open === {{ i }} ? null : {{ i }}"
+                                                    class="btn btn-primary">
+                                                Show Content
+                                            </button>
+                                            <div class="flex-grow text-center">{{ question }}</div>
+                                        </div>
+                                        <div x-show="open === {{ i }}" class="mt-2">
+                                            {{ answer }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logo Column -->
+            <div class="w-full md:w-1/2 flex items-center justify-center">
+                <img class="mx-auto" src="{{ theme.link }}/wp-content/uploads/2024/01/mappy_v2.png" alt="">
+            </div>
+        </div>
+    </div>
+</section>

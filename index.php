@@ -15,7 +15,7 @@
 
 $context          = Timber::context();
 $context['posts'] = Timber::get_posts();
-$context['tests'] = Timber::get_posts(['post_type' => 'test'] );
+$context['faqs'] = Timber::get_posts(['post_type' => 'faq'] );
 
 
 //$context['foo']   = 'bar';

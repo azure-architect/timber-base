@@ -5,7 +5,12 @@
 	{% for post in posts %}
 		{% include ['tease-'~post.post_type~'.twig', 'tease.twig'] %}
 	{% endfor %}
-	{% include "partial/faq-component.twig" %}
+{#	{% include('examples.twig') %}#}
+{#	{% include "partial/faq-component.twig" %}#}
+{#	{% include 'views/sections/tabs-3.twig' %}#}
+{#	{% include 'views/sections/slider.twig' %}#}
+{#	{% include 'views/partial/accordion.twig' %}#}
+	{% include 'views/twui/products/products-row.twig' %}
 
-	{% include 'partial/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
+{#	{% include 'partial/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}#}
 {% endblock %}

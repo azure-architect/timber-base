@@ -1,0 +1,22 @@
+<section>
+    {% set args = {
+        post_type: "product"
+    }%}
+
+    {% set products = get_posts(args)  %}
+{#    {{ dump(products) }}#}
+    {% for product in products %}
+{#        {{ dump(product.meta()) }}#}
+           <h3 class="font-extrabold text-3xl">
+                   {{ product._sku }}
+           </h3>
+        <div class="flex">
+        </div>
+        {% if loop.index == '1' %}
+        {% set state = product.meta() %}
+{#            {{ dump(state) }}#}
+        {{ include('debug.twig' )}}
+        {% endif %}
+    {% endfor %}
+
+</section>

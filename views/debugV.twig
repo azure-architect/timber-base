@@ -1,0 +1,110 @@
+<section class="debug-panel">
+    <div class="debug-panel__container">
+        <div class="debug-panel__header">
+            <span class="debug-panel__title">Debug</span>
+            <button id="debug-toggle-button" class="debug-panel__toggle-button">Activate</button>
+        </div>
+        <div
+            id="debug-panel-content" class="debug-panel__content" style="display: none;">
+
+
+            <!-- Include PrismJS Stylesheet -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/themes/prism.min.css" rel="stylesheet"/>
+
+            {% if maxheight is empty %}
+                {% set maxheight = 700 %}
+            {% endif %}
+
+            <!-- Code Snippet -->
+            <style>
+                .debug-panel__code {
+                    max-height: {{maxheight}}
+                    px;
+                    background-color: #f5f5f5; /* Optional: background color for better visibility */
+                    padding: 10px; /* Optional: some padding for aesthetics */
+                    border: 1px solid #ccc; /* Optional: adds a border around the preformatted text */
+                    border-radius: 4px; /* Optional: rounds the corners of the border */
+                }
+            </style>
+
+            {# {% set state = CompletePost(CurrentPost) %} #}
+
+            <pre><code style="border: none!important;" class="debug-panel__code language-json">{{ function('json_encode', state, constant('JSON_PRETTY_PRINT')) | escape('html') }}</code></pre>
+
+            <!-- Include PrismJS Script -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/prism.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.26.0/components/prism-json.min.js"></script>
+        </div>
+    </div>
+    <script>
+
+        var toggleButton = document.getElementById('debug-toggle-button');
+var debugContent = document.getElementById('debug-panel-content');
+
+toggleButton.addEventListener('click', function () {
+var isOpen = debugContent.style.display !== 'none';
+debugContent.style.display = isOpen ? 'none' : 'block';
+toggleButton.textContent = isOpen ? 'Activate' : 'Deactivate';
+});
+    </script>
+
+    <style>
+        .debug-panel {
+            position: fixed;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            max-width: 32rem; /* Assuming 2xl is 32rem */
+            margin-right: auto;
+            width: 100%;
+            z-index: 50;
+        }
+
+        .debug-panel__container {
+            background-color: #f3f4f6; /* gray-100 */
+            gap: 0.5rem; /* gap-2 */
+            border-top-left-radius: 1.5rem; /* rounded-t-3xl */
+            border-top-right-radius: 1.5rem;
+        }
+
+        .debug-panel__header {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 2rem; /* pt-3 pb-2 px-8 */
+        }
+
+        .debug-panel__title {
+            color: #4b5563; /* text-gray-700 */
+            font-weight: bold;
+            font-size: 1.125rem; /* text-lg */
+        }
+
+        .debug-panel__toggle-button {
+            background-color: #1f2937; /* bg-gray-800 */
+            color: #d1d5db; /* text-gray-300 */
+            padding: 0.25rem 1rem; /* py-1 px-4 */
+            border-radius: 0.375rem; /* rounded-md */
+        }
+
+        .debug-panel__content {
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .debug-panel__code {
+            max-height: 700px;
+            overflow-y: auto;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
+
+</section>
